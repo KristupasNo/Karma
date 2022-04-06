@@ -1,0 +1,69 @@
+﻿@page
+@model Karma.Pages.TextingModel
+    @{
+    ViewData["Title"] = "Texting";
+    }
+
+    <div><h4 class="account-settings-title">Your messages</h4></div>
+
+    @if (Model.Inbox.Count != 0 || Model.Outbox.Count != 0)
+    {
+    <!-- META VISAS ZINUTES -->
+    foreach(var message in Model.Inbox)
+    {
+    <div class="card message-card mt-2 rounded-0">
+        <div class="card-header card-header-custom">
+            <p class="m-0 text-muted">From: @message.FromEmail | Sent at: @message.Date</p>
+        </div>
+        <div class="card-body">
+            @message.Content
+
+                <form method="post" asp-page-handler="message" asp-route-itemid="@Model.Message" class="mt-4 needs-validation" novalidate>
+
+
+
+
+                    <button class="btn button-custom rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                        Reply
+                    </button>
+                    <div id="collapseExample2" class="collapse">
+                        <div class="form-group row mb-3 mt-3 ">
+                            <label asp-for="Message.Content" class="col-sm-2 col-form-label">
+                            </label>
+                            <div class="col-sm-10">
+                                <input asp-for="Message.Content" class="form-control rounded-0" placeholder="Content" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid message.
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn button-custom rounded-0">Send</button>
+                    </div>
+                </form>
+
+        </div>
+    </div>
+    }
+
+    foreach(var message in Model.Outbox)
+    {
+    <div class="card message-card mt-2 rounded-0">
+        <div class="card-header card-header-custom">
+            <p class="m-0 text-muted">To: @message.ToEmail | Sent at: @message.Date</p>
+        </div>
+        <div class="card-body">
+            @message.Content
+
+            <form asp-page-handler="delete" asp-route-id="@message" method="post">
+                <button class="btn btn-default">Delete</button>
+            </form>
+
+        </div>
+    </div>
+    }
+    @RedirectToPage("/Texting");
+
+    }else{
+    <h1>No messages</h1>
+    }
