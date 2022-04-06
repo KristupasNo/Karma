@@ -1,7 +1,7 @@
 ﻿@page
 @model Karma.Areas.Identity.Pages.Account.InboxModel
-@{
-}
+@{ ViewData["Title"] = "Inbox";
+                ViewData["ActivePage"] = ManageNavPages.Inbox; }
 
 @if (Model.Inbox.Count != 0)
 {
@@ -16,6 +16,7 @@
             </div>
         </div>
     }
-}else{
+}
+else{
     <h1>No messages</h1>
 }

@@ -64,5 +64,24 @@ namespace Karma.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
         }
+
+        public async Task<ActionResult<Message>> Delete(int id)
+        {
+            try
+            {
+                var result = await MessageService.GetMessages();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return await MessageService.DeleteMsg(id);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
+            }
+        }
     }
 }

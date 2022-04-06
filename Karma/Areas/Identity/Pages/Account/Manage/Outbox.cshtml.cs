@@ -16,9 +16,9 @@ namespace Karma.Areas.Identity.Pages.Account
     public class OutboxModel : PageModel
     {
 
-        public OutboxModel(HttpClient httpClient)
+        public OutboxModel(HttpClient client)
         {
-            HttpClient = httpClient;
+            HttpClient = client;
         }
 
         public List<Message> Outbox { get; set; }
@@ -28,7 +28,7 @@ namespace Karma.Areas.Identity.Pages.Account
         {
             var email = User.Identity.Name;
 
-            Outbox = await HttpClient.GetFromJsonAsync<List<Message>>($"https://localhost:5001/api/messages/from/{email}",
+            Outbox = await HttpClient.GetFromJsonAsync<List<Message>>($"https://localhost:44332/api/messages/from/{email}",
                 new JsonSerializerOptions()
                 {
                     PropertyNameCaseInsensitive = true,

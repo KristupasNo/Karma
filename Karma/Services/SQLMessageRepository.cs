@@ -38,5 +38,16 @@ namespace Karma.Services
         {
             return await Context.Messages.Where(m => m.FromEmail == email).ToListAsync();
         }
+
+        public async Task<Message> DeleteMsg(int id)
+        {
+            Message msg = await Context.Messages.FindAsync(id);
+            if (msg != null)
+            {
+                Context.Messages.Remove(msg);
+                await Context.SaveChangesAsync();
+            }
+            return msg;
+        }
     }
 }

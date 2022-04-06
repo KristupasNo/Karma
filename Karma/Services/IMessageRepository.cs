@@ -12,5 +12,6 @@ namespace Karma.Services
         public Task<Message> AddMessage(Message message);
         public Task<List<Message>> GetMessagesToEmail(string email);
         public Task<List<Message>> GetMessagesFromEmail(string email);
+        public Task<Message> DeleteMsg(int id);
     }
 }

@@ -15,10 +15,9 @@ namespace Karma.Areas.Identity.Pages.Account
 {
     public class InboxModel : PageModel
     {
-
-        public InboxModel(HttpClient httpClient)
+        public InboxModel(HttpClient client)
         {
-            HttpClient = httpClient;
+            HttpClient = client;
         }
         public List<Message> Inbox { get; set; }
         public HttpClient HttpClient { get; }
@@ -27,12 +26,20 @@ namespace Karma.Areas.Identity.Pages.Account
         {
             var email = User.Identity.Name;
 
-            Inbox = await HttpClient.GetFromJsonAsync<List<Message>>($"https://localhost:5001/api/messages/to/{email}",
+            Inbox = await HttpClient.GetFromJsonAsync<List<Message>>($"https://localhost:44332/api/messages/to/{email}",
                 new JsonSerializerOptions()
                 {
                     PropertyNameCaseInsensitive = true,
                     ReferenceHandler = ReferenceHandler.Preserve
                 });
+
+            foreach (var v in Inbox.ToList())
+            {
+                if (v.FromEmail != "karmanotifier@karma.com")
+                {
+                    Inbox.Remove(v);
+                }
+            }
 
             return Page();
         }
