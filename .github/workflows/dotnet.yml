@@ -17,10 +17,19 @@ jobs:
       uses: actions/setup-dotnet@v2 
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+      
+    - name: Build Karma
+      run: dotnet build Karma/Karma/Karma.csproj --configuration Debug --no-restore
+      
+    - name: Build ServiceTests
+      run: dotnet build Karma/KarmaService.Tests/KarmaService.Tests.csproj --configuration Debug --no-restore
+    
+    - name: Run Tests
+      run: dotnet test KarmaService.Tests --no-restore --verbosity normal
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
