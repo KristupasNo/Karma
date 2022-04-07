@@ -23,7 +23,7 @@ namespace KarmaService.Tests
         [TestMethod]
         public void DeletePicture_PhotoPathGiven_ReturnsTrue()
         {
-            Assert.IsTrue(pictureService.DeletePicture(path, photoName));
+            Assert.IsTrue(pictureService.DeletePicture(path, null)); //photoName
         }
         
         [TestMethod]
