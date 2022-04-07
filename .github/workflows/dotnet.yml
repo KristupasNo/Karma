@@ -29,7 +29,3 @@ jobs:
     
     - name: Run Tests
       run: dotnet test KarmaService.Tests --no-restore --verbosity normal
-      
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      
