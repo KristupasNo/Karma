@@ -9,7 +9,7 @@ namespace Karma.Services
     {
         public bool DeletePicture(string rootPath, string photoName)
         {
-            if (photoName != null && photoName != "noimage.jpg" && rootPath != null) // be rootPath
+            if (photoName != null && photoName != "noimage.jpg") //&& rootPath != null)  be rootPath
             {
                 string filePath = Path.Combine(rootPath, "images", photoName);
                 System.IO.File.Delete(filePath);
